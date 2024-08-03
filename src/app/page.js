@@ -1,9 +1,15 @@
-import Image from "next/image";
+import Banner from "@/components/fragments/home/banner";
+import RecentEvent from "@/components/fragments/home/recent-event";
+import DivisionButton from "@/components/fragments/home/division-button";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>mantap kali</h1>
-    </main>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold">Home Us</h1>
+      <p>This is the home page of your Next.js app.</p>
+      <Banner/>
+      <RecentEvent/>
+      <DivisionButton/>
+    </div>
   );
 }

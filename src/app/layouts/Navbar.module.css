@@ -1,0 +1,122 @@
+/* Default styles for screens 1025px and above */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #071135;
+    color: #fff;
+  }
+  
+  .navbar-logo img {
+    height: 50px;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .navbar-login {
+    display: block; /* Show login button on desktop */
+  }
+  
+  .login-button {
+    padding: 0.5rem 1rem;
+    background-color: #091748;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #0E1E76;
+  }
+  
+  /* Hide burger and sidebar on screens 1025px and above */
+  @media (min-width: 1025px) {
+    .navbar-burger,
+    .sidebar {
+      display: none;
+    }
+  }
+  
+  /* Styles for screens 1024px and below */
+  @media (max-width: 1024px) {
+    .navbar {
+      position: relative;
+      padding: 0 1rem;
+      flex-wrap: nowrap;
+    }
+  
+    .navbar-links {
+      display: none; /* Hide links on mobile view */
+    }
+  
+    .navbar-login {
+      display: none; /* Hide login button on mobile view */
+    }
+  
+    .navbar-burger {
+      display: block;
+      cursor: pointer;
+    }
+  
+    .navbar-burger div {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      margin: 5px 0;
+    }
+  
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 65%;
+      height: 100%;
+      background-color: #071135;
+      color: #fff;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+      padding: 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+  
+    .sidebar.open {
+      transform: translateX(0);
+    }
+  
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    .sidebar-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.5rem;
+    }
+  
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      color: #fff;
+      font-size: 1.5rem;
+    }
+  
+    .sidebar-login {
+      margin-top: 1rem;
+      display: block; /* Show login button inside sidebar */
+    }
+  }
