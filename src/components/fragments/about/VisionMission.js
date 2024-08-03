@@ -6,17 +6,17 @@ export default function VisionMission() {
   const [isVisionVisible, setIsVisionVisible] = useState(true);
 
   return (
-    <section className="bg-blue-900 text-white py-8">
+    <section className="bg-[#071135] text-white py-8">
       <div className="max-w-4xl mx-auto text-center">
         <div className="flex justify-center mb-4">
           <button
-            className={`px-4 py-2 ${isVisionVisible ? 'bg-white text-blue-900' : 'bg-blue-900 text-white'} border rounded-l`}
+            className={`px-4 py-2 ${isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'} border rounded-l`}
             onClick={() => setIsVisionVisible(true)}
           >
             Vision
           </button>
           <button
-            className={`px-4 py-2 ${!isVisionVisible ? 'bg-white text-blue-900' : 'bg-blue-900 text-white'} border rounded-r`}
+            className={`px-4 py-2 ${!isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'} border rounded-r`}
             onClick={() => setIsVisionVisible(false)}
           >
             Mission
