@@ -1,8 +1,17 @@
+import Image from "next/image";
+
 export default function RecentEvent() {
     return (
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold">Recent Event</h1>
-        <p>This is the Recent Event fragment from src/app/components/fragment/home of your Next.js app.</p>
+      <div className="p-4 md:px-32 text-black h-screen">
+        <h1 className="text-3xl font-bold text-center">Recent Event</h1>
+
+        <article>
+          <h1>JUDUL</h1>
+          <span>01-01-2024</span>
+          <Image src="">
+
+          </Image>
+        </article>
       </div>
     );
   }
