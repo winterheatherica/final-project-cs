@@ -27,9 +27,7 @@ export default function Navbar() {
 
         {/* Login Button for Desktop */}
         <div className="hidden md:block">
-          <button className="bg-[#0E1E76] hover:bg-[#030617] text-white px-4 py-2 rounded">
-            Login
-          </button>
+            <a href="/register" className="bg-[#0E1E76] hover:bg-[#030617] text-white px-4 py-2 rounded">Daftar</a>
         </div>
 
         {/* Burger Menu for Mobile */}
@@ -62,7 +60,7 @@ export default function Navbar() {
           <a href="/event" className="hover:text-[#0E1E76]">Event</a>
           <a href="/contact" className="hover:text-[#0E1E76]">Contact</a>
           <button className="bg-[#0E1E76] hover:bg-[#030617] text-white px-4 py-2 rounded mt-4">
-            Login
+            <a href="/register" className="bg-[#0E1E76] hover:bg-[#030617] text-white px-4 py-2 rounded">Daftar</a>
           </button>
         </div>
       </div>

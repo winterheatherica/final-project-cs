@@ -47,8 +47,8 @@ export default function Banner() {
 
     return (
         <>
-            <div className="md:px-32 flex flex-col md:flex-row-reverse h-screen items-center bg-[#071135]">
-                <div className="bg-gray-600 w-full h-1/3 p-4">
+            <div className="md:px-32 flex flex-col md:flex-row-reverse h-screen items-center gap-3 bg-[#071135]">
+                <div className="bg-gray-600 w-full md:w-2/5 h-1/3 md:h-1/2 p-4 md:rounded">
 
                 </div>
                 <div className="md:w-3/5 flex flex-col gap-4 px-4 py-6">
