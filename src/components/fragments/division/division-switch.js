@@ -31,7 +31,7 @@ export default function DivisionSwitch({ setActiveDivision, activeDivision }) {
         >
           Software Development
           {activeDivision === 'software-development' && (
-            <Image src={logos['software-development']} alt="Software Development Logo" width={80} height={80} />
+            <Image src={logos['software-development']} alt="Software Development Logo" width={70} height={70} />
           )}
         </button>
         <span className="text-white text-4xl">|</span>
@@ -41,7 +41,7 @@ export default function DivisionSwitch({ setActiveDivision, activeDivision }) {
         >
           Explore
           {activeDivision === 'explore' && (
-            <Image src={logos['explore']} alt="Explore Logo" width={80} height={80} />
+            <Image src={logos['explore']} alt="Explore Logo" width={70} height={70} />
           )}
         </button>
         <span className="text-white text-4xl">|</span>
@@ -51,7 +51,7 @@ export default function DivisionSwitch({ setActiveDivision, activeDivision }) {
         >
           Cyber Security
           {activeDivision === 'cyber-security' && (
-            <Image src={logos['cyber-security']} alt="Cyber Security Logo" width={80} height={80} />
+            <Image src={logos['cyber-security']} alt="Cyber Security Logo" width={70} height={70} />
           )}
         </button>
       </div>

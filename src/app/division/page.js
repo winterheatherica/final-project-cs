@@ -9,7 +9,7 @@ export default function Division() {
   const [activeDivision, setActiveDivision] = useState('software-development');
 
   return (
-    <div className="text-black">
+    <div className="text-black mt-16">
       <DivisionSwitch setActiveDivision={setActiveDivision} activeDivision={activeDivision} />
       <div className="mt-8 container mx-auto p-4">
         <DivisionAbout activeDivision={activeDivision} />
