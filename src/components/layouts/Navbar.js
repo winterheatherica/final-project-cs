@@ -9,7 +9,7 @@ export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <nav className="bg-[#071135] text-white fixed w-screen">
+    <nav className="bg-[#071135] text-white fixed w-screen z-10">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* Logo */}
         <div className="flex items-center">

@@ -1,5 +1,4 @@
 import { Carousel, IconButton } from "@material-tailwind/react";
-import Image from "next/image";
 
 export default function DivisionButton() {
     return (
@@ -28,7 +27,7 @@ export default function DivisionButton() {
 
           {/* carousel */}
           <Carousel
-          className="rounded-xl -z-10"
+          className="rounded-xl"
           prevArrow={({ handlePrev }) => (
             <IconButton
               variant="text"
