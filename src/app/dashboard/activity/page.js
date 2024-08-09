@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import { addActivity, fetchActivities, storePickedActivities } from '../../../firebase/database'; // Pastikan path-nya benar
+import RequireAuth from '../../../firebase/requireAuth'; 
 
 const ActivityDashboard = () => {
   const [title, setTitle] = useState('');
@@ -129,6 +130,7 @@ const ActivityDashboard = () => {
   );
 
   return (
+    <RequireAuth allowedTypes={['A']}>
     <div className='pt-32'>
       <form onSubmit={handleAddActivity}>
         <div>
@@ -186,6 +188,7 @@ const ActivityDashboard = () => {
         <pre>{JSON.stringify(pickedDivision, null, 2)}</pre>
       </div>
     </div>
+    </RequireAuth>
   );
 };
 

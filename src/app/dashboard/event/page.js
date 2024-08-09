@@ -7,6 +7,7 @@ import { getAuth } from 'firebase/auth';
 import { addEvent, fetchEvents, storePickedEvents } from '../../../firebase/database'; // Pastikan path-nya benar
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
+import RequireAuth from '../../../firebase/requireAuth'; 
 
 // Constants for Google Maps
 const containerStyle = {
@@ -19,7 +20,8 @@ const center = {
   lng: 106.82714939117432
 };
 
-const GEOCODING_API_KEY = 'AIzaSyBhp4HjPJPZ2JpYBF3rC0q9_e9zhpiTSTw';
+const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY;
+
 
 const getAddressFromCoordinates = async (latitude, longitude) => {
     try {
@@ -218,6 +220,7 @@ const EventDashboard = () => {
   );
 
   return (
+    <RequireAuth allowedTypes={['A']}>
     <div className='pt-32'>
       <form onSubmit={handleAddEvent}>
         <div>
@@ -316,6 +319,7 @@ const EventDashboard = () => {
         </div>
       )}
     </div>
+    </RequireAuth>
   );
 };
 
