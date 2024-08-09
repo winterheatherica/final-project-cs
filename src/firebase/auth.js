@@ -1,9 +1,7 @@
-// src/firebase/auth.js
-
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
-import { addUserToDatabase } from './database'; // Pastikan impor benar
-import app from './firebaseConfig'; // Import konfigurasi Firebase
+import { addUserToDatabase } from './database';
+import app from './firebaseConfig';
 
 const auth = getAuth(app);
 const database = getDatabase(app);
@@ -28,7 +26,6 @@ export const logIn = async (emailOrUsername, password) => {
       // Login with email
       userCredential = await signInWithEmailAndPassword(auth, emailOrUsername, password);
     } else {
-      // Find the email associated with the username
       const usernameQuery = query(ref(database, 'users'), orderByChild('username'), equalTo(emailOrUsername));
       const snapshot = await get(usernameQuery);
 
@@ -55,7 +52,6 @@ export const getAuthStatus = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          // Mengambil data pengguna dari Realtime Database
           const userRef = ref(database, `users/${user.uid}`);
           const userSnapshot = await get(userRef);
 
@@ -85,6 +81,7 @@ export const getAuthStatus = () => {
     }, reject);
   });
 };
+
 export const logOut = () => {
   return auth.signOut();
 };
