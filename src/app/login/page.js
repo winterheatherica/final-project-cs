@@ -1,6 +1,7 @@
 // src/pages/login/page.js
 'use client';
 
+import {Card,Input,Checkbox,Button,Typography,} from "@material-tailwind/react";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import useRouter dari next/navigation
 import { logIn } from '../../firebase/auth';
@@ -25,7 +26,9 @@ const Login = () => {
   };
 
   return (
-    <div className='py-20'>
+
+    <>
+    <div className='pt-20 text-[#071135]'>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -36,6 +39,7 @@ const Login = () => {
             value={emailOrUsername}
             onChange={(e) => setEmailOrUsername(e.target.value)}
             required
+            className="border border-[#071135]"
           />
         </div>
         <div>
@@ -46,12 +50,16 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="border border-[#071135]"
           />
         </div>
         <button type="submit">Log In</button>
       </form>
       {error && <p>Error: {error}</p>}
     </div>
+    </>
+
+    
   );
 };
 
