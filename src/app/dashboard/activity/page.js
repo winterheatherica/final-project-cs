@@ -82,7 +82,7 @@ const ActivityDashboard = () => {
 
   // Render table function
   const renderTable = (divisionActivities, divisionName) => (
-    <div>
+    <div className="text-black">
       <h2 className='mt-8'>{divisionName} Division</h2>
       <table className='table-auto w-full mt-4 border-collapse border border-gray-200'>
         <thead>

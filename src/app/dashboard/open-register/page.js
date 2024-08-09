@@ -102,7 +102,7 @@ const OpenRegDashboard = () => {
   
   return (
     <RequireAuth allowedTypes={['A']}>
-      <div className='pt-20'>
+      <div className='pt-20 text-black'>
         <h1>Open Registration Dashboard</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
