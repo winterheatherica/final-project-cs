@@ -13,6 +13,7 @@ const containerStyle = {
   width: '100%',
   height: '100%'
 };
+
 const center = {
   lat: -6.175387641164253,
   lng: 106.82714939117432
@@ -176,6 +177,7 @@ const EventDashboard = () => {
             <th className='border border-gray-300 px-4 py-2'>Title</th>
             <th className='border border-gray-300 px-4 py-2'>Description</th>
             <th className='border border-gray-300 px-4 py-2'>Date</th> {/* Tambahkan kolom untuk tanggal */}
+            <th className='border border-gray-300 px-4 py-2'>Location</th>
             <th className='border border-gray-300 px-4 py-2'>Type</th>
             <th className='border border-gray-300 px-4 py-2'>Created By</th>
             <th className='border border-gray-300 px-4 py-2'>Created At</th>
@@ -190,7 +192,12 @@ const EventDashboard = () => {
               <td className='border border-gray-300 px-4 py-2'>{event.title}</td>
               <td className='border border-gray-300 px-4 py-2'>{event.desc}</td>
               <td className='border border-gray-300 px-4 py-2'>{new Date(event.date).toLocaleDateString()}</td> {/* Tampilkan tanggal */}
-              <td className='border border-gray-300 px-4 py-2'>{event.type}</td>
+              <td className='border border-gray-300 px-4 py-2'>{event.location_name}</td>
+              <td className='border border-gray-300 px-4 py-2'>
+                {event.type === 'I' ? 'Internal' :
+                event.type === 'E' ? 'External' :
+                'Unknown Division'}
+              </td>
               <td className='border border-gray-300 px-4 py-2'>{event.created_by}</td>
               <td className='border border-gray-300 px-4 py-2'>{new Date(event.created_at).toLocaleString()}</td>
               <td className='border border-gray-300 px-4 py-2'>

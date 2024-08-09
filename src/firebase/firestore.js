@@ -1,12 +1,8 @@
-// src/firebase/firestore.js
-
 import app from "./firebaseConfig";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-// Initialize Firestore
 const firestore = getFirestore(app);
 
-// Fungsi untuk menambahkan data pengguna ke Firestore
 export const addUserToFirestore = async (user) => {
   try {
     const docRef = await addDoc(collection(firestore, "users"), {

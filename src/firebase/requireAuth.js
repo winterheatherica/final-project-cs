@@ -1,6 +1,4 @@
-// components/RequireAuth.js
-
-'use client'; // Menandai ini sebagai komponen klien
+'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -16,13 +14,13 @@ const RequireAuth = ({ children, allowedTypes }) => {
       try {
         const currentUser = await getAuthStatus();
         if (!currentUser || !allowedTypes.includes(currentUser.type)) {
-          router.push('/no-access'); // Redirect to no-access if not authorized
+          router.push('/no-access');
         } else {
           setUser(currentUser);
         }
       } catch (error) {
         console.error('Error checking auth status:', error);
-        router.push('/no-access'); // Redirect on error
+        router.push('/no-access');
       } finally {
         setLoading(false);
       }
@@ -36,7 +34,7 @@ const RequireAuth = ({ children, allowedTypes }) => {
   }
 
   if (!user) {
-    return null; // or some loading indicator
+    return null;
   }
 
   return <>{children}</>;

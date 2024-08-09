@@ -1,10 +1,8 @@
-import app from "./firebaseConfig"; // Import the initialized Firebase app
-import { storage } from './firebaseConfig'; // Import Firebase Storage
-import { getDatabase, ref, update, get, push, set } from 'firebase/database'; // Import Firebase Realtime Database functions
-import { ref as storageRef, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage'; // Import Firebase Storage functions
+import app from "./firebaseConfig";
+import { storage } from './firebaseConfig';
+import { getDatabase, ref, update, get, push, set } from 'firebase/database';
+import { ref as storageRef, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 
-
-// Initialize Realtime Database
 const database = getDatabase(app);
 const USERS_REF = 'users/';
 
@@ -12,18 +10,16 @@ export const addUserToDatabase = async (user) => {
   try {
     const { uid, email, username } = user;
 
-    // Validasi data
     if (!uid || !email || !username) {
       throw new Error('Invalid user data');
     }
 
-    // Add user data to the database with the provided UID
     await set(ref(database, `${USERS_REF}${uid}`), {
       uid,
       email,
       username,
-      type: "C", // Default value for type
-      created_at: new Date().toISOString() // Timestamp for creation
+      type: "C",
+      created_at: new Date().toISOString()
     });
 
     console.log('User data added to Realtime Database');
@@ -38,9 +34,9 @@ export const getAllUsers = async () => {
     const usersRef = ref(database, 'users');
     const snapshot = await get(usersRef);
     if (snapshot.exists()) {
-      return snapshot.val(); // Mengembalikan data pengguna sebagai objek
+      return snapshot.val();
     } else {
-      return {}; // Mengembalikan objek kosong jika tidak ada data
+      return {};
     }
   } catch (error) {
     console.error('Error fetching all users:', error.message);
@@ -57,25 +53,20 @@ export const updateUserType = async (uid, newType) => {
     throw error;
   }
 }
-// Fungsi untuk menambah open registration
+
 export const addOpenReg = async (openReg) => {
   try {
-    const openRegRef = ref(database, 'tb_open_reg'); // Referensi ke tabel open registration
+    const openRegRef = ref(database, 'tb_open_reg');
 
-    // Mengambil nilai `last_open_reg_id` yang ada di Firebase
     const lastOpenRegIdSnapshot = await get(ref(database, 'last_open_reg_id'));
     let lastOpenRegId = lastOpenRegIdSnapshot.exists() ? lastOpenRegIdSnapshot.val() : 0;
 
-    // Auto-increment open_reg_id
     const newOpenRegId = lastOpenRegId + 1;
 
-    // Update nilai `last_open_reg_id` di Firebase
     await set(ref(database, 'last_open_reg_id'), newOpenRegId);
 
-    // Menambahkan `open_reg_id` ke data yang akan disimpan
     const newOpenReg = { ...openReg, open_reg_id: newOpenRegId };
 
-    // Simpan open registration baru
     const newOpenRegRef = push(openRegRef);
     await set(newOpenRegRef, newOpenReg);
 
@@ -85,7 +76,6 @@ export const addOpenReg = async (openReg) => {
     throw error;
   }
 };
-
 
 export const getAllOpenRegs = async () => {
   try {
@@ -110,7 +100,7 @@ export const getUserById = async (uid) => {
     if (snapshot.exists()) {
       return snapshot.val();
     } else {
-      return null; // Return null if user does not exist
+      return null;
     }
   } catch (error) {
     console.error('Error fetching user by UID:', error.message);
@@ -137,7 +127,6 @@ export const getPickedDate = async () => {
 
 export const addPickedDate = async (dates) => {
   try {
-    // Gunakan `open_reg_id` sebagai bagian dari path jika perlu
     const pickedDatesRef = ref(database, `picked_dates/${PICKED_DATE_ID}`);
     await set(pickedDatesRef, dates);
     console.log('Picked date updated successfully');
@@ -147,31 +136,12 @@ export const addPickedDate = async (dates) => {
   }
 };
 
-// export const getOpenRegId = async () => {
-//     const db = getDatabase();
-//     const dbRef = ref(db);
-
-//     try {
-//         const snapshot = await get(child(dbRef, 'open_reg_path')); // Sesuaikan jalur 'open_reg_path' dengan jalur di database Anda
-//         if (snapshot.exists()) {
-//             return snapshot.val().open_reg_id; // Sesuaikan dengan struktur data Anda
-//         } else {
-//             console.log("No data available");
-//             return null;
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         throw error;
-//     }
-// };
-
 export const getOpenRegIdFromPickedDates = async () => {
   try {
       const snapshot = await get(ref(database, 'picked_dates/'));
       if (snapshot.exists()) {
-          // Assuming you want the first record for demonstration purposes
           const data = snapshot.val();
-          const firstKey = Object.keys(data)[0]; // Get the first key
+          const firstKey = Object.keys(data)[0];
           const openRegId = data[firstKey].open_reg_id;
           return openRegId;
       } else {
@@ -189,7 +159,7 @@ export const getUsernameByUid = async (uid) => {
     const userRef = ref(database, `users/${uid}`);
     const snapshot = await get(userRef);
     if (snapshot.exists()) {
-      return snapshot.val().username; // Assuming 'username' is a field in your user data
+      return snapshot.val().username;
     } else {
       console.log('No user data found for UID:', uid);
       return null;
@@ -205,15 +175,13 @@ export const getNextRegId = async () => {
   const regIdRef = ref(db, 'registration_count');
   const snapshot = await get(regIdRef);
 
-  let nextRegId = 1; // Default starting value
+  let nextRegId = 1;
 
   if (snapshot.exists()) {
       nextRegId = snapshot.val() + 1;
   }
 
-  // Update the registration_count to the next value
   await set(regIdRef, nextRegId);
-
   return nextRegId;
 };
 
@@ -264,27 +232,20 @@ export const addActivity = async (activity, file) => {
   try {
     const { title, desc, uid, division } = activity;
 
-    // Dapatkan activity_id berikutnya
     const activityId = await getNextActivityId();
 
-    // Ambil waktu lokal dalam format ISO string
     const createdAt = new Date().toISOString();
 
-    // Simpan aktivitas ke Firebase Realtime Database
     const db = getDatabase();
     const activityRef = ref(db, `activities/${activityId}`);
 
-    // Simpan gambar jika ada
     let imageUrl = '';
     if (file) {
-      // Define image file path
       const storage = getStorage();
       const imagePath = `activities/activity_${division}_${activityId}.jpg`;
       const imageRef = storageRef(storage, imagePath);
 
-      // Upload file ke Firebase Storage
       await uploadBytes(imageRef, file);
-      // Dapatkan URL download gambar
       imageUrl = await getDownloadURL(imageRef);
     }
 
@@ -292,10 +253,10 @@ export const addActivity = async (activity, file) => {
       title,
       desc,
       activity_id: activityId,
-      division, // Menyimpan nilai satu huruf untuk division
+      division,
       created_by: uid,
       created_at: createdAt,
-      image_url: imageUrl // Simpan URL gambar jika ada
+      image_url: imageUrl
     });
 
     console.log('Activity added successfully with ID:', activityId);
@@ -331,13 +292,12 @@ export const getNextActivityId = async () => {
   const counterRef = ref(db, 'activity_counter');
   const snapshot = await get(counterRef);
 
-  let nextActivityId = 1; // Default starting value
+  let nextActivityId = 1;
 
   if (snapshot.exists()) {
     nextActivityId = snapshot.val() + 1;
   }
 
-  // Update counter di database ke nilai berikutnya
   await set(counterRef, nextActivityId);
 
   return nextActivityId;
@@ -350,12 +310,31 @@ export const fetchActivities = async () => {
     const snapshot = await get(activitiesRef);
 
     if (snapshot.exists()) {
-      return snapshot.val(); // Mengembalikan objek aktivitas
+      return snapshot.val();
     } else {
       return {};
     }
   } catch (error) {
     console.error('Error fetching activities:', error);
+    throw error;
+  }
+};
+
+export const fetchPickedActivities = async () => {
+  try {
+    const db = getDatabase();
+    const pickedActivitiesRef = ref(db, 'picked_activities');
+    const snapshot = await get(pickedActivitiesRef);
+
+    if (snapshot.exists()) {
+      console.log('Picked Activities fetched:', snapshot.val());
+      return snapshot.val();
+    } else {
+      console.log('No picked activities found.');
+      throw new Error('No data available');
+    }
+  } catch (error) {
+    console.error('Error fetching picked activities:', error);
     throw error;
   }
 };
@@ -371,42 +350,33 @@ export const storePickedActivities = async (pickedDivision) => {
       updates[pickedId] = { activity_id: activityId };
     });
 
-    // Menyimpan updates ke database
     await set(pickedActivitiesRef, updates);
 
     console.log('Picked activities stored successfully:', updates);
   } catch (error) {
     console.error('Error storing picked activities:', error);
-    throw error; // Throw error to be caught by the calling function
+    throw error;
   }
 };
 
-// Function to add an event
 export const addEvent = async (event, file) => {
   try {
     const { title, desc, type, date, uid, latitude, longitude, locationName } = event;
 
-    // Dapatkan event_id berikutnya
     const eventId = await getNextEventId();
 
-    // Ambil waktu lokal dalam format ISO string
     const createdAt = new Date().toISOString();
 
-    // Simpan event ke Firebase Realtime Database
     const db = getDatabase();
     const eventRef = ref(db, `events/${eventId}`);
 
-    // Simpan gambar jika ada
     let imageUrl = '';
     if (file) {
-      // Define image file path
       const storage = getStorage();
       const imagePath = `events/event_${type}_${eventId}.jpg`;
       const imageRef = storageRef(storage, imagePath);
 
-      // Upload file ke Firebase Storage
       await uploadBytes(imageRef, file);
-      // Dapatkan URL download gambar
       imageUrl = await getDownloadURL(imageRef);
     }
 
@@ -414,14 +384,14 @@ export const addEvent = async (event, file) => {
       title,
       desc,
       event_id: eventId,
-      type, // Menyimpan nilai satu huruf untuk type
-      date, // Menyimpan tanggal
+      type,
+      date,
       created_by: uid,
       created_at: createdAt,
       image_url: imageUrl,
-      latitude, // Menyimpan latitude
-      longitude, // Menyimpan longitude
-      location_name: locationName // Menyimpan nama lokasi
+      latitude,
+      longitude,
+      location_name: locationName
     });
   } catch (error) {
     console.error('Error adding event:', error);
@@ -429,8 +399,6 @@ export const addEvent = async (event, file) => {
   }
 };
 
-
-// Function to upload an event image
 export const uploadEventImage = async (file, eventId, type) => {
   try {
     if (!file || !eventId || !type) {
@@ -452,25 +420,22 @@ export const uploadEventImage = async (file, eventId, type) => {
   }
 };
 
-// Function to get the next event ID
 export const getNextEventId = async () => {
   const db = getDatabase();
   const counterRef = ref(db, 'event_counter');
   const snapshot = await get(counterRef);
 
-  let nextEventId = 1; // Default starting value
+  let nextEventId = 1;
 
   if (snapshot.exists()) {
     nextEventId = snapshot.val() + 1;
   }
 
-  // Update counter in the database to the next value
   await set(counterRef, nextEventId);
 
   return nextEventId;
 };
 
-// Function to fetch events
 export const fetchEvents = async () => {
   try {
     const db = getDatabase();
@@ -478,7 +443,7 @@ export const fetchEvents = async () => {
     const snapshot = await get(eventsRef);
 
     if (snapshot.exists()) {
-      return snapshot.val(); // Return event object
+      return snapshot.val();
     } else {
       return {};
     }
@@ -488,7 +453,6 @@ export const fetchEvents = async () => {
   }
 };
 
-// Function to store picked events
 export const storePickedEvents = async (pickedEvents) => {
   try {
     const db = getDatabase();
@@ -500,13 +464,12 @@ export const storePickedEvents = async (pickedEvents) => {
       updates[pickedId] = { event_id: eventId };
     });
 
-    // Save updates to the database
     await set(pickedEventsRef, updates);
 
     console.log('Picked events stored successfully:', updates);
   } catch (error) {
     console.error('Error storing picked events:', error);
-    throw error; // Throw error to be caught by the calling function
+    throw error;
   }
 };
 

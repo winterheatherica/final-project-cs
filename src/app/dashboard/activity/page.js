@@ -103,7 +103,12 @@ const ActivityDashboard = () => {
               <td className='border border-gray-300 px-4 py-2'>{activityId}</td>
               <td className='border border-gray-300 px-4 py-2'>{activity.title}</td>
               <td className='border border-gray-300 px-4 py-2'>{activity.desc}</td>
-              <td className='border border-gray-300 px-4 py-2'>{activity.division}</td>
+              <td className='border border-gray-300 px-4 py-2'>
+                {activity.division === 'S' ? 'Software Development' :
+                activity.division === 'E' ? 'Explore' :
+                activity.division === 'C' ? 'Cyber Security' :
+                'Unknown Division'}
+              </td>
               <td className='border border-gray-300 px-4 py-2'>{activity.created_by}</td>
               <td className='border border-gray-300 px-4 py-2'>{new Date(activity.created_at).toLocaleString()}</td>
               <td className='border border-gray-300 px-4 py-2'>
