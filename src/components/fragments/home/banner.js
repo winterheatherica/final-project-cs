@@ -51,7 +51,7 @@ export default function Banner() {
                 <div className="bg-gray-600 w-full md:w-2/5 h-1/3 md:h-1/2 p-4 md:rounded">
 
                 </div>
-                <div className="md:w-3/5 flex flex-col gap-4 px-4 py-6">
+                <div className="md:w-3/5 flex flex-col gap-4 px-4 py-6 text-white">
                     {/* desc */}
                     <h1 className="text-4xl font-medium">UNLIMITED CONNECTION</h1>
                     <p className="text-justify font-">Computer Student Club (CSC) adalah kelompok studi mahasiswa di Politeknik Negeri Jakarta yang berfokus pada ranah keamanan siber, pengembangan perangkat lunak, dan IoT.</p>

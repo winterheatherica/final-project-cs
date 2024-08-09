@@ -1,7 +1,7 @@
 // src/components/Footer.js
 export default function Footer() {
     return (
-      <footer className="bg-[#071135] text-white py-8 text-center">
+      <footer className="bg-[#071135] text-white py-8 px-4 text-center">
         <div className="container mx-auto">
           {/* Desktop Layout */}
           <div className="hidden md:grid md:grid-cols-3 md:gap-4">
@@ -21,9 +21,14 @@ export default function Footer() {
   
           {/* Mobile Layout */}
           <div className="md:hidden space-y-4">
-            <div>Aasdads</div>
-            <div>B</div>
-            <div>C</div>
+            <div className="text-left">
+              <img src="/logo.png" className="w-fit"/>
+              CSC PNJ
+            </div>
+            <div className="">Politeknik Negeri Jakarta, Depok</div>
+            <div className="text-justify text-sm">
+              Computer Student Club (CSC) adalah kelompok studi mahasiswa di Politeknik Negeri Jakarta yang berfokus pada ranah keamanan siber, pengembangan perangkat lunak, dan IoT.
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div>D</div>
               <div>E</div>
