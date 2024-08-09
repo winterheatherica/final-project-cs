@@ -453,6 +453,25 @@ export const fetchEvents = async () => {
   }
 };
 
+export const fetchPickedEvents = async () => {
+  try {
+    const db = getDatabase();
+    const pickedEventsRef = ref(db, 'picked_events');
+    const snapshot = await get(pickedEventsRef);
+
+    if (snapshot.exists()) {
+      console.log('Picked Events fetched:', snapshot.val());
+      return snapshot.val();
+    } else {
+      console.log('No picked events found.');
+      throw new Error('No data available');
+    }
+  } catch (error) {
+    console.error('Error fetching picked events:', error);
+    throw error;
+  }
+};
+
 export const storePickedEvents = async (pickedEvents) => {
   try {
     const db = getDatabase();

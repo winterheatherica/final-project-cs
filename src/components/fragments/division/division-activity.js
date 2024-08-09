@@ -54,8 +54,6 @@ export default function DivisionActivity({ activeDivision }) {
         
         setActivityList(filteredActivities);
         
-
-
         if (filteredActivities.length == 0) {
           console.log('No activities found for this division.');
         }
