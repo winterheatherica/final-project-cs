@@ -85,6 +85,7 @@ export const getAuthStatus = () => {
     }, reject);
   });
 };
+
 export const logOut = () => {
   return auth.signOut();
 };

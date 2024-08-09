@@ -1,7 +1,7 @@
 import app from "./firebaseConfig"; // Import the initialized Firebase app
 import { storage } from './firebaseConfig'; // Import Firebase Storage
 import { getDatabase, ref, update, get, push, set } from 'firebase/database'; // Import Firebase Realtime Database functions
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import Firebase Storage functions
+import { ref as storageRef, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage'; // Import Firebase Storage functions
 
 
 // Initialize Realtime Database
@@ -260,3 +260,85 @@ export const uploadFile = async (file, open_reg_id, reg_id) => {
   }
 };
 
+export const addActivity = async (activity, file) => {
+  try {
+    const { title, desc, uid, division } = activity;
+
+    // Dapatkan activity_id berikutnya
+    const activityId = await getNextActivityId();
+
+    // Ambil waktu lokal dalam format ISO string
+    const createdAt = new Date().toISOString();
+
+    // Simpan aktivitas ke Firebase Realtime Database
+    const db = getDatabase();
+    const activityRef = ref(db, `activities/${activityId}`);
+
+    // Simpan gambar jika ada
+    let imageUrl = '';
+    if (file) {
+      // Define image file path
+      const storage = getStorage();
+      const imagePath = `activities/activity_${division}_${activityId}.jpg`;
+      const imageRef = storageRef(storage, imagePath);
+
+      // Upload file ke Firebase Storage
+      await uploadBytes(imageRef, file);
+      // Dapatkan URL download gambar
+      imageUrl = await getDownloadURL(imageRef);
+    }
+
+    await set(activityRef, {
+      title,
+      desc,
+      activity_id: activityId,
+      division, // Menyimpan nilai satu huruf untuk division
+      created_by: uid,
+      created_at: createdAt,
+      image_url: imageUrl // Simpan URL gambar jika ada
+    });
+
+    console.log('Activity added successfully with ID:', activityId);
+  } catch (error) {
+    console.error('Error adding activity:', error);
+    throw error;
+  }
+};
+
+export const uploadActivityImage = async (file, activityId, division) => {
+  try {
+    if (!file || !activityId || !division) {
+      throw new Error('File, activityId, and division must be provided');
+    }
+
+    const sanitizeFileName = (name) => {
+      return name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-\.]/g, '');
+    };
+
+    const fileName = `activity_${division}_${activityId}_${sanitizeFileName(file.name)}`;
+    const fileRef = storageRef(storage, `activities/${fileName}`);
+    await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(fileRef);
+    return url;
+  } catch (error) {
+    console.error('Error uploading activity image:', error);
+    throw error;
+  }
+};
+
+export const getNextActivityId = async () => {
+  const db = getDatabase();
+  const counterRef = ref(db, 'activity_counter');
+  const snapshot = await get(counterRef);
+
+  let nextActivityId = 1; // Default starting value
+
+  if (snapshot.exists()) {
+    nextActivityId = snapshot.val() + 1;
+  }
+
+  // Update counter di database ke nilai berikutnya
+  await set(counterRef, nextActivityId);
+
+  return nextActivityId;
+};

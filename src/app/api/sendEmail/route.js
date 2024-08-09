@@ -7,13 +7,13 @@ export async function POST(req) {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'rafii.anindito.tik22@mhsw.pnj.ac.id',
-      pass: 'IG5FIB5F',
+      user: process.env.EMAIL_USER, // Ambil email dari variabel lingkungan
+      pass: process.env.EMAIL_PASS, // Ambil password dari variabel lingkungan
     },
   });
 
   const mailOptions = {
-    from: 'rafii.anindito.tik22@mhsw.pnj.ac.id',
+    from: process.env.EMAIL_USER, // Ambil email dari variabel lingkungan
     to: 'rafiianindito29@gmail.com',
     subject: title,
     text: content,
