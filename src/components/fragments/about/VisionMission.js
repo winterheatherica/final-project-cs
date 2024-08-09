@@ -29,7 +29,7 @@ export default function VisionMission() {
               Menjadi wadah pengembangan minat dan bakat mahasiswa di bidang teknologi yang berfokus pada keamanan jaringan, pengembangan perangkat lunak, dan Internet of Things (IoT) yang menginspirasi inovasi dan menghasilkan pemimpin masa depan dalam dunia teknologi.
             </p>
           ) : (
-            <ul className="list-disc list-inside space-y-2 text-justify">
+            <ul className="text-lg list-disc list-inside space-y-2 text-justify">
               <li>Memberikan pemahaman mendalam tentang teknologi dan mendukung perkembangan keahlian mahasiswa.</li>
               <li>Menyediakan platform untuk eksplorasi dan penerapan konsep-konsep teknologi yang relevan.</li>
               <li>Mendorong kolaborasi antara anggota, alumni, dan mitra industri untuk menciptakan solusi yang berdampak.</li>
