@@ -8,7 +8,7 @@ export async function POST(req) {
     service: 'Gmail',
     auth: {
       user: 'rafii.anindito.tik22@mhsw.pnj.ac.id',
-      pass: 'IG5FIB5F',
+      pass: '',
     },
   });
 
