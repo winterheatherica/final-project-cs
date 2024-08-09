@@ -10,13 +10,13 @@ export default function VisionMission() {
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row">
         <div className="md:w-1/3 flex flex-col items-center md:items-start mb-4 md:mb-0">
           <button
-            className={`w-full px-4 py-2 text-lg rounded-full md:rounded-1 md:rounded-2 ${isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'}`}
+            className={`w-full px-4 py-2 text-lg rounded-full md:rounded-1 md:rounded-2 ${isVisionVisible ? 'bg-white text-[#071135]' : 'bg-[#071135] text-white'}`}
             onClick={() => setIsVisionVisible(true)}
           >
             <b>VISION</b>
           </button>
           <button
-            className={`w-full px-4 py-2 text-lg rounded-full md:rounded-1 md:rounded-2 ${!isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'}`}
+            className={`w-full px-4 py-2 text-lg rounded-full md:rounded-1 md:rounded-2 ${!isVisionVisible ? 'bg-white text-[#071135]' : 'bg-[#071135] text-white'}`}
             onClick={() => setIsVisionVisible(false)}
           >
             <b>MISSION</b>
