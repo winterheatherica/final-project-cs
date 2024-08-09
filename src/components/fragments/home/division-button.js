@@ -93,15 +93,15 @@ export default function DivisionButton() {
 
             {/* image */}
             <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
-              <img src="/division/softdev.png"alt="image 1" className="object-cover h-2/5"/>
+              <img src="/division/softdev.png" alt="softdev" className="object-cover h-2/5"/>
               <h1 className="text-2xl font-bold text-center mt-5 flex p-4">SOFTWARE DEVELOPMENT</h1>
             </div>
             <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
-              <img src="/division/cyber.png"alt="image 1" className="object-cover h-3/6"/>
+              <img src="/division/cyber.png" alt="cyber security" className="object-cover h-3/6"/>
               <h1 className="text-2xl font-bold text-center p-4">CYBER SECURITY</h1>
             </div>
             <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
-              <img src="/division/explore.png"alt="image 1" className="object-cover h-3/6"/>
+              <img src="/division/explore.png" alt="explore" className="object-cover h-3/6"/>
               <h1 className="text-2xl font-bold text-center p-4">EXPLORE</h1>
             </div>
             
