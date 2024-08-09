@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { getPickedDate } from '../../../firebase/database'; // Import your function to get picked date
+import { getPickedDate } from '../../../firebase/database'; 
 
 export default function Banner() {
     const [timerDays, setTimerDays] = useState('00');
@@ -29,13 +29,15 @@ export default function Banner() {
             targetDate = closeDate;
             buttonText = 'JOIN WITH US';
         } else {
-            targetDate = now; // No countdown needed
+            targetDate = now; 
             buttonText = 'Sudah Tutup';
         }
 
         interval.current = setInterval(() => {
+            const now = new Date().getTime(); 
+        
             const countdown = targetDate - now;
-
+        
             if (countdown < 0) {
                 clearInterval(interval.current);
                 setTimerDays('00');
@@ -45,18 +47,19 @@ export default function Banner() {
                 setButtonText(buttonText);
                 return;
             }
-
+        
             const days = Math.floor(countdown / (1000 * 60 * 60 * 24));
             const hours = Math.floor((countdown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
-
+        
             setTimerDays(days.toString().padStart(2, '0'));
             setTimerHours(hours.toString().padStart(2, '0'));
             setTimerMinutes(minutes.toString().padStart(2, '0'));
             setTimerSeconds(seconds.toString().padStart(2, '0'));
             setButtonText(buttonText);
         }, 1000);
+        
     };
 
     useEffect(() => {
