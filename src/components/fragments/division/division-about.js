@@ -8,9 +8,9 @@ const aboutContent = {
 };
 
 const logo = {
-  'software-development': '/about-softdev.png',
-  'explore': '/about-exlore.png',
-  'cyber-security': '/about-cyber-sec.png'
+  'software-development': '/division/softdev.png',
+  'explore': '/division/explore.png',
+  'cyber-security': '/division/cyber.png'
 };
 
 export default function DivisionAbout({ activeDivision }) {
