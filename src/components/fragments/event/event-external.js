@@ -1,8 +1,35 @@
+import EventItem from './EventItem';
+
 export default function EventExternal() {
+  const eventData = [
+    {
+      image: 'image3.jpg',
+      title: 'Judul 3',
+      date: '02-02-2024',
+      body: 'Menjadi wadah pengembangan minat dan bakat mahasiswa di bidang teknologi...',
+      reverse: false
+    },
+    {
+      image: 'image4.jpg',
+      title: 'Judul 4',
+      date: '02-02-2024',
+      body: 'Menjadi wadah pengembangan minat dan bakat mahasiswa di bidang teknologi...',
+      reverse: true
+    }
+  ];
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold">Event External</h1>
-      <p>This is the Event External fragment from src/app/components/fragment/home of your Next.js app.</p>
+    <div className="space-y-20">
+      {eventData.map((event, index) => (
+        <EventItem
+          key={index}
+          image={event.image}
+          title={event.title}
+          date={event.date}
+          body={event.body}
+          reverse={event.reverse}
+        />
+      ))}
     </div>
   );
 }
