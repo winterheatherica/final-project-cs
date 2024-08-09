@@ -66,9 +66,12 @@ export default function EventList({ activeEvent }) {
     getEvents(activeEvent);
   }, [activeEvent]);
 
+  // Determine the title based on the activeEvent
+  const eventTitle = activeEvent === 'internal' ? 'Internal Events' : 'External Events';
+
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold mb-4 text-center">Events</h2>
+      <h2 className="text-xl font-bold mb-4 text-center">{eventTitle}</h2>
       {error && <p className="text-red-500">{error}</p>}
       {eventList.length > 0 ? (
         eventList.map((event, index) => (
