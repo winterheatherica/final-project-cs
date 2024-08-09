@@ -6,31 +6,30 @@ export default function VisionMission() {
   const [isVisionVisible, setIsVisionVisible] = useState(true);
 
   return (
-    <section className="bg-[#071135] text-white py-8">
-      <div className="max-w-4xl mx-auto text-center">
-        <div className="flex justify-center mb-4">
+    <section className="bg-[#071135] text-white py-8 px-4">
+      <div className="max-w-4xl mx-auto flex flex-col md:flex-row">
+        <div className="md:w-1/3 flex flex-col items-center md:items-start mb-4 md:mb-0">
           <button
-            className={`px-4 py-2 ${isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'} border rounded-l`}
+            className={`w-full px-4 py-2 text-lg rounded-full md:rounded-1 md:rounded-2 ${isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'}`}
             onClick={() => setIsVisionVisible(true)}
           >
-            Vision
+            <b>VISION</b>
           </button>
           <button
-            className={`px-4 py-2 ${!isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'} border rounded-r`}
+            className={`w-full px-4 py-2 text-lg rounded-full md:rounded-1 md:rounded-2 ${!isVisionVisible ? 'bg-white text-blue-900' : 'bg-[#071135] text-white'}`}
             onClick={() => setIsVisionVisible(false)}
           >
-            Mission
+            <b>MISSION</b>
           </button>
         </div>
-        {isVisionVisible ? (
-          <div>
-            <p className=" text-justify text-lg leading-relaxed">
+
+        <div className="md:w-2/3 md:pl-8 text-justify">
+          {isVisionVisible ? (
+            <p className="text-lg leading-relaxed">
               Menjadi wadah pengembangan minat dan bakat mahasiswa di bidang teknologi yang berfokus pada keamanan jaringan, pengembangan perangkat lunak, dan Internet of Things (IoT) yang menginspirasi inovasi dan menghasilkan pemimpin masa depan dalam dunia teknologi.
             </p>
-          </div>
-        ) : (
-          <div className="text-justify">
-            <ul className="list-disc list-inside space-y-2">
+          ) : (
+            <ul className="list-disc list-inside space-y-2 text-justify">
               <li>Memberikan pemahaman mendalam tentang teknologi dan mendukung perkembangan keahlian mahasiswa.</li>
               <li>Menyediakan platform untuk eksplorasi dan penerapan konsep-konsep teknologi yang relevan.</li>
               <li>Mendorong kolaborasi antara anggota, alumni, dan mitra industri untuk menciptakan solusi yang berdampak.</li>
@@ -38,8 +37,8 @@ export default function VisionMission() {
               <li>Memberikan dukungan dan peluang untuk meraih prestasi tinggi di bidang teknologi.</li>
               <li>Mempromosikan etika dan keamanan dalam penggunaan teknologi untuk kesejahteraan bersama.</li>
             </ul>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );
