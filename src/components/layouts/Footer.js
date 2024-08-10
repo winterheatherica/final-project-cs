@@ -1,13 +1,32 @@
 // src/components/Footer.js
+"use client"
+
 import { IconMail } from '@tabler/icons-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import { IconBrandX } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
 import { IconCopyright } from '@tabler/icons-react';
+import { useState, useEffect } from 'react';
+import { getAuthStatus } from '../../firebase/auth';
 
 export default function Footer({ show = true }) {
-  if (!show) return null;
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserStatus = async () => {
+      try {
+        const currentUser = await getAuthStatus();
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Error fetching auth status:', error.message);
+      }
+    };
+
+    fetchUserStatus();
+  }, []);
+
+  if (!show || (user && user.type === 'A')) return null;
 
   return (
     <footer className="bg-[#071135] text-white md:py-8 text-center">
@@ -15,7 +34,7 @@ export default function Footer({ show = true }) {
         {/* Desktop Layout */}
         <div className="hidden md:grid md:grid-cols-3 md:grid-rows-2 md:gap-4">
           <div className="flex items-center font-medium text-lg">
-            <img src="/logo.png" className="object-cover h-16"/>
+            <img src="/logo.png" className="object-cover h-16" />
             <p>CSC PNJ</p>
           </div>
 
@@ -50,13 +69,12 @@ export default function Footer({ show = true }) {
           <div className="text-justify font-light text-sm">
             <p>Computer Student Club (CSC) adalah kelompok studi mahasiswa di Politeknik Negeri Jakarta yang berfokus pada ranah keamanan siber, pengembangan perangkat lunak, dan IoT.</p>
           </div>
-
         </div>
 
         {/* Mobile Layout */}
         <div className="md:hidden space-y-4 p-4">
           <div className="flex items-center font-medium gap-1">
-            <img src="/logo.png" className="object-cover h-10"/>
+            <img src="/logo.png" className="object-cover h-10" />
             <p>CSC PNJ</p>
           </div>
           <div className="flex items-center justify-center text-sm">
