@@ -1,7 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
 import { addUserToDatabase } from './database';
-import app from './firebaseConfig';
+import { app } from './firebaseConfig';
 
 const auth = getAuth(app);
 const database = getDatabase(app);
