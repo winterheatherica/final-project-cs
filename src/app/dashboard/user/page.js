@@ -51,86 +51,89 @@ const UserDashboard = () => {
   };
 
   return (
-    <RequireAuth allowedTypes={['A']}>
-      <div className='pt-20 text-black'>
-        <h1>User Dashboard</h1>
-        <table className="table-auto w-full mt-8 border-collapse border border-gray-200">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2">ID</th>
-              <th className="border border-gray-300 px-4 py-2">Email</th>
-              <th className="border border-gray-300 px-4 py-2">Username</th>
-              <th className="border border-gray-300 px-4 py-2">Type</th>
-              <th className="border border-gray-300 px-4 py-2">Created At</th>
-              <th className="border border-gray-300 px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u, index) => (
-              <tr key={index}>
-                <td className="border border-gray-300 px-4 py-2">{u.uid || 'N/A'}</td>
-                <td className="border border-gray-300 px-4 py-2">{u.email || 'N/A'}</td>
-                <td className="border border-gray-300 px-4 py-2">{u.username || 'N/A'}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {editingUserId === u.uid ? (
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          name={`type-${u.uid}`}
-                          value="A"
-                          checked={newType === 'A'}
-                          onChange={handleTypeChange}
-                        />
-                        A
-                      </label>
-                      <label className="ml-4">
-                        <input
-                          type="radio"
-                          name={`type-${u.uid}`}
-                          value="C"
-                          checked={newType === 'C'}
-                          onChange={handleTypeChange}
-                        />
-                        C
-                      </label>
-                    </div>
-                  ) : (
-                    u.type || 'N/A'
-                  )}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">{u.created_at || 'N/A'}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {editingUserId === u.uid ? (
-                    <>
-                      <button
-                        onClick={() => handleSave(u.uid)}
-                        className="bg-blue-500 text-white px-2 py-1 rounded"
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        className="bg-gray-500 text-white px-2 py-1 rounded ml-2"
-                      >
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      onClick={() => handleEditClick(u.uid, u.type)}
-                      className="bg-yellow-500 text-white px-2 py-1 rounded"
-                    >
-                      Edit
-                    </button>
-                  )}
-                </td>
+    <div className="flex">
+    
+      <RequireAuth allowedTypes={['A']}>
+        <div className='pt-20 text-black pl-72 pr-4'>
+         <h1 className="text-center text-3xl font-medium">User Dashboard</h1>
+          <table className="table-auto w-full mt-8 border-collapse border border-gray-200">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 px-4 py-2">ID</th>
+                <th className="border border-gray-300 px-4 py-2">Email</th>
+                <th className="border border-gray-300 px-4 py-2">Username</th>
+                <th className="border border-gray-300 px-4 py-2">Type</th>
+                <th className="border border-gray-300 px-4 py-2">Created At</th>
+                <th className="border border-gray-300 px-4 py-2">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </RequireAuth>
+            </thead>
+            <tbody>
+              {users.map((u, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-300 px-4 py-2">{u.uid || 'N/A'}</td>
+                  <td className="border border-gray-300 px-4 py-2">{u.email || 'N/A'}</td>
+                  <td className="border border-gray-300 px-4 py-2">{u.username || 'N/A'}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {editingUserId === u.uid ? (
+                      <div>
+                        <label>
+                          <input
+                            type="radio"
+                            name={`type-${u.uid}`}
+                            value="A"
+                            checked={newType === 'A'}
+                            onChange={handleTypeChange}
+                          />
+                          A
+                        </label>
+                        <label className="ml-4">
+                          <input
+                            type="radio"
+                            name={`type-${u.uid}`}
+                            value="C"
+                            checked={newType === 'C'}
+                            onChange={handleTypeChange}
+                          />
+                          C
+                        </label>
+                      </div>
+                    ) : (
+                      u.type || 'N/A'
+                    )}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">{u.created_at || 'N/A'}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {editingUserId === u.uid ? (
+                      <>
+                        <button
+                          onClick={() => handleSave(u.uid)}
+                          className="bg-blue-500 text-white px-2 py-1 rounded"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleCancel}
+                          className="bg-gray-500 text-white px-2 py-1 rounded ml-2"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => handleEditClick(u.uid, u.type)}
+                        className="bg-yellow-500 text-white px-2 py-1 rounded"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </RequireAuth>
+    </div>
   );
 };
 

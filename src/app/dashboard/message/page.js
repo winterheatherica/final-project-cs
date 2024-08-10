@@ -53,7 +53,7 @@ const MessageDashboard = () => {
 
   return (
     <RequireAuth allowedTypes={['A']}>
-      <div className='pt-20'>
+      <div className='pt-20 text-black pl-72 pr-4'>
         <h1>Message Dashboard</h1>
         <p>Manage messages here.</p>
         {error && <p className="text-red-500">{error}</p>}

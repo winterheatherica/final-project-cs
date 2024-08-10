@@ -78,7 +78,7 @@ export default function Navbar() {
 
       {/* Admin Sidebar */}
       {isAdmin && (
-        <div className="bg-[#071135] text-white w-64 h-full md:hidden lg:block fixed top-0 left-0">
+        <div className="bg-[#071135] text-white w-64 h-full md:hidden lg:block top-0 left-0 fixed">
           <div className="flex flex-col p-4 space-y-4">
             <div className="flex items-center justify-center w-full mb-6">
               <img src="/logo.png" className="h-8" />
