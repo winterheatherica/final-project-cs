@@ -491,4 +491,3 @@ export const storePickedEvents = async (pickedEvents) => {
     throw error;
   }
 };
-

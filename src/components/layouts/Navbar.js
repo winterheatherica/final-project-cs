@@ -23,6 +23,7 @@ export default function Navbar() {
     checkAuthStatus();
   }, []);
 
+
   const handleLogout = async () => {
     try {
       await logOut();
