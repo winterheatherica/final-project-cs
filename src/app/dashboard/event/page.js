@@ -9,7 +9,7 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import axios from 'axios';
 import RequireAuth from '../../../firebase/requireAuth';
 import { Select, Option } from "@material-tailwind/react";
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 // Constants for Google Maps
 const containerStyle = {
