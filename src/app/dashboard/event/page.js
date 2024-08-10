@@ -177,8 +177,8 @@ const EventDashboard = () => {
             <th className='border border-gray-300 px-4 py-2'>Event ID</th>
             <th className='border border-gray-300 px-4 py-2'>Title</th>
             <th className='border border-gray-300 px-4 py-2'>Description</th>
-            <th className='border border-gray-300 px-4 py-2'>Date</th> {/* Tambahkan kolom untuk tanggal */}
-            <th className='border border-gray-300 px-4 py-2'>Location</th>
+            <th className='border border-gray-300 px-4 py-2'>Date</th>
+            <th className='border border-gray-300 px-4 py-2'>Address</th>
             <th className='border border-gray-300 px-4 py-2'>Type</th>
             <th className='border border-gray-300 px-4 py-2'>Created By</th>
             <th className='border border-gray-300 px-4 py-2'>Created At</th>
@@ -192,7 +192,7 @@ const EventDashboard = () => {
               <td className='border border-gray-300 px-4 py-2'>{eventId}</td>
               <td className='border border-gray-300 px-4 py-2'>{event.title}</td>
               <td className='border border-gray-300 px-4 py-2'>{event.desc}</td>
-              <td className='border border-gray-300 px-4 py-2'>{new Date(event.date).toLocaleDateString()}</td> {/* Tampilkan tanggal */}
+              <td className='border border-gray-300 px-4 py-2'>{new Date(event.date).toLocaleDateString()}</td>
               <td className='border border-gray-300 px-4 py-2'>{event.location_name}</td>
               <td className='border border-gray-300 px-4 py-2'>
                 {event.type === 'I' ? 'Internal' :
