@@ -1,32 +1,31 @@
 import { Carousel, IconButton } from "@material-tailwind/react";
 
 export default function DivisionButton() {
-    return (
-      <div className="h-screen p-8">
+  return (
+    <div className="h-screen p-8">
 
-                {/* JUDUL */}
-        <h1 className="text-[#071135] font-bold text-3xl text-center mb-5">DIVISION</h1>
+      {/* JUDUL */}
+      <h1 className="text-white font-bold text-3xl text-center mb-5">DIVISION</h1>
 
-        <div className="hidden md:flex justify-evenly items-center h-3/5">
-          {/* image */}
-          <div className="bg-[#071135] h-full w-1/4 flex flex-col items-center justify-center rounded-xl">
-            <img src="/division/softdev.png"alt="image 1" className="object-cover h-3/6"/>
-            <h1 className="text-2xl font-bold text-center mt-5 flex px-8">SOFTWARE DEVELOPMENT</h1>
-          </div>
-          <div className="bg-[#071135] h-full w-1/4 flex flex-col items-center justify-center rounded-xl">
-            <img src="/division/cyber.png"alt="image 1" className="object-cover h-4/6"/>
-            <h1 className="text-2xl font-bold text-center px-8">CYBER SECURITY</h1>
-          </div>
-          <div className="bg-[#071135] h-full w-1/4 flex flex-col items-center justify-center rounded-xl">
-            <img src="/division/explore.png"alt="image 1" className="object-cover h-4/6"/>
-            <h1 className="text-2xl font-bold text-center px-8">EXPLORE</h1>
-          </div>
+      <div className="hidden md:flex justify-evenly items-center h-3/5">
+        {/* image */}
+        <div className="bg-[#071135] h-full w-1/4 flex flex-col items-center justify-center rounded-xl">
+          <img src="/division/softdev.png" alt="image 1" className="object-cover h-3/6"/>
+          <h1 className="text-2xl font-bold text-white text-center mt-5 flex px-8">SOFTWARE DEVELOPMENT</h1>
         </div>
+        <div className="bg-[#071135] h-full w-1/4 flex flex-col items-center justify-center rounded-xl">
+          <img src="/division/cyber.png" alt="image 1" className="object-cover h-4/6"/>
+          <h1 className="text-2xl font-bold text-white text-center px-8">CYBER SECURITY</h1>
+        </div>
+        <div className="bg-[#071135] h-full w-1/4 flex flex-col items-center justify-center rounded-xl">
+          <img src="/division/explore.png" alt="image 1" className="object-cover h-4/6"/>
+          <h1 className="text-2xl font-bold text-white text-center px-8">EXPLORE</h1>
+        </div>
+      </div>
 
-        <div className="h-3/5 md:hidden">
-
-          {/* carousel */}
-          <Carousel
+      <div className="h-3/5 md:hidden">
+        {/* carousel */}
+        <Carousel
           className="rounded-xl"
           prevArrow={({ handlePrev }) => (
             <IconButton
@@ -89,31 +88,25 @@ export default function DivisionButton() {
               ))}
             </div>
           )}
-          >
+        >
 
-            {/* image */}
-            <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
-              <img src="/division/softdev.png" alt="softdev" className="object-cover h-2/5"/>
-              <h1 className="text-2xl font-bold text-center mt-5 flex p-4">SOFTWARE DEVELOPMENT</h1>
-            </div>
-            <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
-              <img src="/division/cyber.png" alt="cyber security" className="object-cover h-3/6"/>
-              <h1 className="text-2xl font-bold text-center p-4">CYBER SECURITY</h1>
-            </div>
-            <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
-              <img src="/division/explore.png" alt="explore" className="object-cover h-3/6"/>
-              <h1 className="text-2xl font-bold text-center p-4">EXPLORE</h1>
-            </div>
-            
-          
-          </Carousel>
+          {/* image */}
+          <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
+            <img src="/division/softdev.png" alt="softdev" className="object-cover h-2/5"/>
+            <h1 className="text-2xl font-bold text-white text-center mt-5 flex p-4 ">SOFTWARE DEVELOPMENT</h1>
+          </div>
+          <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
+            <img src="/division/cyber.png" alt="cyber security" className="object-cover h-3/6"/>
+            <h1 className="text-2xl font-bold text-white text-center p-4">CYBER SECURITY</h1>
+          </div>
+          <div className="bg-[#071135] h-full flex flex-col items-center justify-center">
+            <img src="/division/explore.png" alt="explore" className="object-cover h-3/6"/>
+            <h1 className="text-2xl font-bold text-white text-center p-4">EXPLORE</h1>
+          </div>
 
-        </div>
-
-        
-
+        </Carousel>
       </div>
-
-    );
+    </div>
+  );
   }
   

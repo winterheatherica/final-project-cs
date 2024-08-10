@@ -7,6 +7,7 @@ import History from "@/components/fragments/about/history";
 export default function Home() {
   return (
     <>
+    <div className='pt-20'>
       <Head>
         <title>CSC PNJ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,6 +17,7 @@ export default function Home() {
         <VisionMission />
         <History />
       </main>
+      </div>
     </>
   );
 }

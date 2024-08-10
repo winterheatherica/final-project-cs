@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getOpenRegIdFromPickedDates, getUsernameByUid, saveRegistration, getNextRegId, uploadFile } from '../../firebase/database';
 import { getAuth } from 'firebase/auth';
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
 export default function Register() {
     const router = useRouter();
@@ -86,34 +87,70 @@ export default function Register() {
       
     return (
         <div className='pt-20 text-black'>
-            <h1>Registration Page</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="open_reg_id" value={openRegId || ''} disabled />
-                <input type="text" name="uid" value={uid || ''} disabled   />
-                <input type="text" name="username" value={username} disabled   />
+
+            <div className="flex w-full items-center justify-center h-screen">
+      <Card color="transparent" shadow={false} className="shadow-lg border px-4 py-10 h-fit flex flex-col md:w-1/3">
+        <div className="flex flex-col flex-grow">
+          <Typography variant="h4" color="blue-gray" className="text-center">
+            Registration Page
+          </Typography>
+          <form onSubmit={handleSubmit} className="mt-8 flex flex-col flex-grow gap-2">
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Id Registrasi
+            </Typography>
+            <Input name="open_reg_id" value={openRegId || ''} disabled/>
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                UID
+            </Typography>
+            <Input name="uid" value={uid || ''} disabled   />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Username
+            </Typography>
+            <Input name="username" value={username} disabled   />
+            <div className="mb-4 flex flex-col gap-6 flex-grow">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Reason
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="reason"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Programming Languages
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="C++"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                value={programmingLanguages}
+                onChange={(e) => setProgrammingLanguages(e.target.value)}
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+              <div className="flex flex-col text-gray-900">
+                <label className="font-medium">Upload File:</label>
                 <input
-                    type="text"
-                    name="reason"
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                    placeholder="Reason"
-                    required
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setFile(e.target.files[0])}
+                className="file:bg-gray-900 file:text-white file:border-none file:rounded file:px-3 file:py-1 shadow border rounded"
                 />
-                <input
-                    type="text"
-                    name="programmingLanguages"
-                    value={programmingLanguages}
-                    onChange={(e) => setProgrammingLanguages(e.target.value)}
-                    placeholder="Programming Languages"
-                    required
-                />
-                <input
-                    type="file"
-                    accept=".pdf"
-                    onChange={handleFileChange}
-                />
-                <button type="submit">Register</button>
-            </form>
+            </div>
+            </div>
+            <Button type="submit" className="mt-auto" fullWidth>
+              JOIN
+            </Button>
+          </form>
+        </div>
+      </Card>
+    </div>
         </div>
     );
 }

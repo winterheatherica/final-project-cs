@@ -1,5 +1,4 @@
-// src/components/Footer.js
-"use client"
+"use client";
 
 import { IconMail } from '@tabler/icons-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
@@ -55,9 +54,13 @@ export default function Footer({ show = true }) {
                 <p>+62 838 1234 5678</p>
               </div>
             </div>
-            <div className="flex">
-              <IconBrandInstagram stroke={1.5} />
-              <IconBrandX stroke={1.5} />
+            <div className="flex gap-4">
+              <a href="https://www.instagram.com/cscpnj/" target="_blank" rel="noopener noreferrer">
+                <IconBrandInstagram stroke={1.5} />
+              </a>
+              <a href="https://x.com/csc_pnj" target="_blank" rel="noopener noreferrer">
+                <IconBrandX stroke={1.5} />
+              </a>
             </div>
           </div>
 
@@ -88,10 +91,12 @@ export default function Footer({ show = true }) {
             <div className="flex flex-col w-1/2 font-light text-xs justify-center items-center">
               <h3 className="text-sm font-medium pb-2">CONTACT US</h3>
               <div className="">
-                <div className="flex items-center">
-                  <IconMail stroke={1.5} />
-                  <p>csc.pnj@gmail.com</p>
-                </div>
+              <div className="flex items-center">
+                <IconMail stroke={1.5} />
+                <a href="/contact" className="ml-2">
+                  csc.pnj@gmail.com
+                </a>
+              </div>
                 <div className="flex items-center">
                   <IconBrandWhatsapp stroke={1.5} />
                   <p>+62 838 1234 5678</p>
@@ -100,8 +105,12 @@ export default function Footer({ show = true }) {
             </div>
             <div className="flex flex-col justify-center items-center w-1/2 gap-5">
               <div className="flex gap-3">
-                <IconBrandInstagram stroke={1.5} />
-                <IconBrandX stroke={1.5} />
+                <a href="https://www.instagram.com/cscpnj/" target="_blank" rel="noopener noreferrer">
+                  <IconBrandInstagram stroke={1.5} />
+                </a>
+                <a href="https://x.com/csc_pnj" target="_blank" rel="noopener noreferrer">
+                  <IconBrandX stroke={1.5} />
+                </a>
               </div>
               <div className="text-left flex items-center font-light gap-1 text-xs">
                 <IconCopyright stroke={1.5} />

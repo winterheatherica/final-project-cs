@@ -69,29 +69,31 @@ export default function DivisionActivity({ activeDivision }) {
   }, [activeDivision]);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold mb-4 text-center">Activities</h2>
-      {error && <p className="text-red-500">{error}</p>}
+    <div className="p-4 md:px-32 text-[#071135] max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-5 text-center">Activities</h2>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       {activityList.length > 0 ? (
         activityList.map((activity, index) => (
           <div 
             key={index} 
-            className={`flex flex-col md:flex-row items-center mb-4 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+            className={`flex flex-col md:flex-row items-center mb-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
           >
             <div 
-              className={`w-full md:w-1/3 h-48 rounded-lg mb-4 md:mb-0 ${index % 2 === 0 ? 'md:mr-2' : 'md:ml-2'}`}
+              className={`w-full md:w-2/3 h-48 md:h-64 rounded-md ${index % 2 === 0 ? 'md:ml-4' : 'md:mr-4'}`}
               style={{ 
                 backgroundImage: `url(${activity.image_url})`, 
-                backgroundSize: 'contain', 
+                backgroundSize: 'cover', 
                 backgroundPosition: 'center', 
                 backgroundRepeat: 'no-repeat'
               }}
-            ></div>
-            <div className="w-full md:w-2/3 flex items-center">
-              <div className={`flex-1 ${index % 2 !== 0 ? 'md:ml-4' : ''}`}>
-                <h3 className="text-lg font-bold mb-2">{activity.title}</h3>
-                <p className="text-gray-600">{activity.desc}</p>
-              </div>
+            >
+              {/* Optional: Add some overlay or content here if needed */}
+            </div>
+            <div className="w-full md:w-3/4 flex items-center justify-center">
+          <div className={`flex-1 ${index % 2 !== 0 ? 'md:ml-4' : ''} text-center`}>
+            <h3 className="text-2xl font-bold mb-2">{activity.title}</h3>
+            <p className="text-gray-600">{activity.desc}</p>
+          </div>
             </div>
           </div>
         ))

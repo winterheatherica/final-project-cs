@@ -71,25 +71,25 @@ export default function EventList({ activeEvent }) {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold mb-4 text-center">{eventTitle}</h2>
-      {error && <p className="text-red-500">{error}</p>}
+      <h2 className="text-2xl font-bold mb-5 text-center">{eventTitle}</h2>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       {eventList.length > 0 ? (
         eventList.map((event, index) => (
           <div 
             key={index} 
-            className={`flex flex-col md:flex-row items-center mb-4 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+            className={`flex flex-col md:flex-row items-center mb-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
           >
             <div 
-              className={`w-full md:w-1/3 h-48 rounded-lg mb-4 md:mb-0 ${index % 2 === 0 ? 'md:mr-2' : 'md:ml-2'}`}
+              className={`w-full md:w-1/3 h-48 md:h-64 rounded-md ${index % 2 === 0 ? 'md:ml-4' : 'md:mr-4'}`}
               style={{ 
                 backgroundImage: `url(${event.image_url})`, 
-                backgroundSize: 'contain', 
+                backgroundSize: 'cover', 
                 backgroundPosition: 'center', 
                 backgroundRepeat: 'no-repeat'
               }}
             ></div>
             <div className="w-full md:w-2/3 flex items-center">
-              <div className={`flex-1 ${index % 2 !== 0 ? 'md:ml-4' : ''}`}>
+              <div className={`flex-1 ${index % 2 !== 0 ? 'md:ml-4' : 'text-center'}`}>
                 <h3 className="text-lg font-bold mb-2">{event.title}</h3>
                 <p className="text-gray-600">{event.date}</p>
                 <p className="text-gray-600">{event.location_name}</p>
@@ -103,4 +103,5 @@ export default function EventList({ activeEvent }) {
       )}
     </div>
   );
+  
 }
