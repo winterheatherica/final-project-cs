@@ -8,6 +8,8 @@ import { addEvent, fetchEvents, storePickedEvents } from '../../../firebase/data
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
 import RequireAuth from '../../../firebase/requireAuth';
+import { Select, Option } from "@material-tailwind/react";
+import Swal from 'sweetalert2';
 
 // Constants for Google Maps
 const containerStyle = {
@@ -132,10 +134,19 @@ const EventDashboard = () => {
     try {
       console.log('Picked Events:', pickedEvents); // Log pickedEvents to ensure correct data
       await storePickedEvents(pickedEvents);
-      alert('Picked events saved successfully!');
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Event has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      });
     } catch (error) {
       console.error('Error saving picked events:', error);
-      setError('Error saving picked events: ' + error.message);
+      Swal.fire({
+        icon: "error",
+        text: "Something went wrong!",
+      });
     }
   };
 
@@ -221,40 +232,44 @@ const EventDashboard = () => {
   return (
 
     <RequireAuth allowedTypes={['A']}>
-      <div className='pt-32 text-black'>
-        <form onSubmit={handleAddEvent}>
-          <div>
+      <div className='pt-10 text-black pl-72 pr-4'>
+        <h1 className="text-center text-3xl font-medium">Event</h1>
+        <form onSubmit={handleAddEvent} className="flex flex-col gap-2">
+          <div className="flex items-center">
             <label>Title:</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              className="outline-none border border-gray-400 px-4 py-1 rounded"
             />
           </div>
-          <div>
+          <div className="flex flex-col">
             <label>Description:</label>
             <textarea
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               required
+              className="outline-none border border-gray-400 px-4 py-1 rounded resize-none"
             />
           </div>
-          <div>
+          <div className="flex items-center gap-2">
             <label>Date:</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
+              className="outline-none border border-gray-400 px-4 py-1 rounded"
             />
           </div>
-          <div>
+          <div className="flex items-center gap-2 w-fit">
             <label>Type:</label>
-            <select value={type} onChange={(e) => setType(e.target.value)} required>
-              <option value="I">Internal</option>
-              <option value="E">External</option>
-            </select>
+            <Select value={type} onChange={(value) => setType(value)} required>
+              <Option value="I">Internal</Option>
+              <Option value="E">External</Option>
+            </Select>
           </div>
           <div>
             <label>Upload Image:</label>
@@ -262,6 +277,7 @@ const EventDashboard = () => {
               type="file"
               accept=".jpg, .png"
               onChange={(e) => setFile(e.target.files[0])}
+              className="file:bg-gray-800 file:text-white file:border-none file:rounded file:px-3 file:py-1 shadow border rounded"
             />
           </div>
           <div>
@@ -270,12 +286,13 @@ const EventDashboard = () => {
               type="text"
               value={latitude && longitude ? `${latitude}, ${longitude}` : 'Select location'}
               readOnly
+              className="outline-none border border-gray-400 px-4 py-1 rounded"
             />
             <button type="button" onClick={handleMapOpen}>
               Pick Address
             </button>
           </div>
-          <button type="submit">Add Event</button>
+          <button type="submit" className="border border-gray-800 rounded-md hover:bg-gray-800 hover:text-white text-gray-800 py-2 mt-5">Add Event</button>
         </form>
         {error && <p>{error}</p>}
 

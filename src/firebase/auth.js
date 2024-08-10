@@ -19,33 +19,48 @@ export const signUp = async (email, password, username) => {
   }
 };
 
-export const logIn = async (emailOrUsername, password) => {
+export const logIn = async (username, password) => {
   try {
-    let userCredential;
-    if (emailOrUsername.includes('@')) {
-      // Login with email
-      userCredential = await signInWithEmailAndPassword(auth, emailOrUsername, password);
-    } else {
-      const usernameQuery = query(ref(database, 'users'), orderByChild('username'), equalTo(emailOrUsername));
-      const snapshot = await get(usernameQuery);
+    const usernameQuery = query(ref(database, 'users'), orderByChild('username'), equalTo(username));
+    const snapshot = await get(usernameQuery);
 
-      if (snapshot.exists()) {
-        const userData = snapshot.val();
-        const userKey = Object.keys(userData)[0];
-        const email = userData[userKey].email;
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+      const userKey = Object.keys(userData)[0];
+      const email = userData[userKey].email;
 
-        userCredential = await signInWithEmailAndPassword(auth, email, password);
+      // Assume signInWithEmailAndPassword is used but only username was provided
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Retrieve additional user details
+      const userRef = ref(database, `users/${user.uid}`);
+      const userSnapshot = await get(userRef);
+
+      if (userSnapshot.exists()) {
+        const userData = userSnapshot.val();
+        return {
+          uid: user.uid,
+          email: user.email,
+          type: userData.type || 'C',
+          username: userData.username || 'User'
+        };
       } else {
-        throw new Error('Username not found');
+        return {
+          uid: user.uid,
+          email: user.email,
+          type: 'C',
+          username: 'User'
+        };
       }
+    } else {
+      throw new Error('Username not found');
     }
-    console.log('User credential after login:', userCredential);
-    return userCredential.user;
   } catch (error) {
     console.error('Login error:', error.message);
     throw error;
   }
-};  
+};
 
 export const getAuthStatus = () => {
   return new Promise((resolve, reject) => {
@@ -81,6 +96,7 @@ export const getAuthStatus = () => {
     }, reject);
   });
 };
+
 
 export const logOut = () => {
   return auth.signOut();

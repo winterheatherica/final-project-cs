@@ -83,7 +83,7 @@ const RegistrationDashboard = () => {
 
   return (
     <RequireAuth allowedTypes={['A']}>
-      <div className='pt-20'>
+      <div className='pt-20 pl-72 text-black pr-4'>
         <h1>Registration Dashboard</h1>
         <p>Manage Registration here.</p>
 

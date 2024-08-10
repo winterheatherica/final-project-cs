@@ -102,49 +102,54 @@ const OpenRegDashboard = () => {
   
   return (
     <RequireAuth allowedTypes={['A']}>
-      <div className='pt-20 text-black'>
-        <h1>Open Registration Dashboard</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label>User ID: </label>
-            <input
-              type="text"
-              name="user_id"
-              value={openReg.user_id || ''} // Ganti jadi Username
-              readOnly
-              className="border rounded px-2 py-1 bg-gray-100"
-            />
-          </div>
-          <div>
-            <label>Open Date: </label>
-            <input
-              type="date"
-              name="open"
-              value={openReg.open}
-              onChange={handleInputChange}
-              required
-              className="border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Close Date: </label>
-            <input
-              type="date"
-              name="close"
-              value={openReg.close}
-              onChange={handleInputChange}
-              required
-              className="border rounded px-2 py-1"
-            />
-          </div>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Create Open Registration
-          </button>
-        </form>
+      <div className='pt-10 text-black pl-72 pr-4'>
+        <h1 className="text-center text-3xl font-medium">Open Registration</h1>
 
-        <h2 className="mt-8">Existing Open Registrations</h2>
-        <p className="mt-4">Picked Open Date: {pickedOpenReg.open || 'None'}</p>
-        <p>Picked Close Date: {pickedOpenReg.close || 'None'}</p>
+        <div className="flex justify-between items-end mt-12">
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label>User ID: </label>
+              <input
+                type="text"
+                name="user_id"
+                value={openReg.user_id || ''} // Ganti jadi Username
+                readOnly
+                className="border rounded px-2 py-1 bg-gray-100"
+              />
+            </div>
+            <div>
+              <label>Open Date: </label>
+              <input
+                type="date"
+                name="open"
+                value={openReg.open}
+                onChange={handleInputChange}
+                required
+                className="border rounded px-2 py-1"
+              />
+            </div>
+            <div>
+              <label>Close Date: </label>
+              <input
+                type="date"
+                name="close"
+                value={openReg.close}
+                onChange={handleInputChange}
+                required
+                className="border rounded px-2 py-1"
+              />
+            </div>
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+              Create Open Registration
+            </button>
+          </form>
+
+          <div className="pr-4 text-center">
+            <h2 className="mb-2 font-medium text-lg">Current Open Registration</h2>
+            <p className="">{pickedOpenReg.open || 'None'} / {pickedOpenReg.close || 'None'}</p>
+          </div>
+        </div>
 
         <table className="table-auto w-full mt-4 border-collapse border border-gray-200">
   <thead>

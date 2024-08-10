@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import { addActivity, fetchActivities, storePickedActivities } from '../../../firebase/database'; // Pastikan path-nya benar
 import RequireAuth from '../../../firebase/requireAuth';
+import { Select, Option } from "@material-tailwind/react";
 
 const ActivityDashboard = () => {
   const [title, setTitle] = useState('');
@@ -81,10 +82,14 @@ const ActivityDashboard = () => {
     }
   };
 
+  const handleDivisionChange = (value) => {
+    setDivision(value);
+  };
+
   // Render table function
   const renderTable = (divisionActivities, divisionName) => (
     <div className="text-black">
-      <h2 className='mt-8'>{divisionName} Division</h2>
+      <h2 className='mt-8 font-medium text-xl'>{divisionName} Division</h2>
       <table className='table-auto w-full mt-4 border-collapse border border-gray-200'>
         <thead>
           <tr className='bg-gray-100'>
@@ -131,43 +136,46 @@ const ActivityDashboard = () => {
 
   return (
     <RequireAuth allowedTypes={['A']}>
-
-      <div className='pt-32'>
-        <form onSubmit={handleAddActivity}>
-          <div>
+      <div className='pt-10 pl-72 text-black pr-4'>
+        <h1 className="text-center text-3xl font-medium">Activity</h1>
+        <form onSubmit={handleAddActivity} className="flex flex-col gap-2">
+          <div className="flex gap-2 items-center">
             <label>Title:</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              className="outline-none border border-gray-400 px-4 py-1 rounded"
             />
           </div>
-          <div>
+          <div className="flex flex-col">
             <label>Description:</label>
             <textarea
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               required
+              className="outline-none border border-gray-400 px-4 py-1 rounded resize-none"
             />
           </div>
-          <div>
+          <div className="w-fit">
             <label>Division:</label>
-            <select value={division} onChange={(e) => setDivision(e.target.value)} required>
-              <option value="S">Soft-dev</option>
-              <option value="C">Cyber</option>
-              <option value="E">Explore</option>
-            </select>
+            <Select value={division} onChange={handleDivisionChange} required>
+              <Option value="S">Soft-dev</Option>
+              <Option value="C">Cyber</Option>
+              <Option value="E">Explore</Option>
+            </Select>
           </div>
-          <div>
-            <label>Upload Image:</label>
+          <div className="flex gap-2 flex-col justify-center w-fit">
+            <label className="">Upload Image:</label>
             <input
               type="file"
               accept=".jpg, .png"
               onChange={(e) => setFile(e.target.files[0])}
+              className="file:bg-gray-800 file:text-white file:border-none file:rounded file:px-3 file:py-1 shadow border rounded"
             />
           </div>
-          <button type="submit">Add Activity</button>
+          <button type="submit" className="border border-gray-800 rounded-md hover:bg-gray-800 hover:text-white text-gray-800 py-2 mt-5">Add Activity</button>
         </form>
         {error && <p>{error}</p>}
 

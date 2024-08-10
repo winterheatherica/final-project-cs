@@ -1,5 +1,6 @@
 'use client';
 
+import Swal from 'sweetalert2'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getOpenRegIdFromPickedDates, getUsernameByUid, saveRegistration, getNextRegId, uploadFile } from '../../firebase/database';
@@ -67,19 +68,29 @@ export default function Register() {
             certif_loc
           });
       
-          router.push('/success');
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
         } catch (error) {
-          console.error('Error saving registration:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
         }
       };
       
     return (
-        <div className='pt-20'>
+        <div className='pt-20 text-black'>
             <h1>Registration Page</h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" name="open_reg_id" value={openRegId || ''} readOnly />
-                <input type="text" name="uid" value={uid || ''} readOnly />
-                <input type="text" name="username" value={username} readOnly />
+                <input type="text" name="open_reg_id" value={openRegId || ''} disabled />
+                <input type="text" name="uid" value={uid || ''} disabled   />
+                <input type="text" name="username" value={username} disabled   />
                 <input
                     type="text"
                     name="reason"
