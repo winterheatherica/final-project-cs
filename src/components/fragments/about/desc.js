@@ -3,7 +3,7 @@ import logo from '/public/logo.png';
 
 export default function About() {
   return (
-    <section className="text-black max-w-4xl mx-auto text-justify py-8">
+    <section className="text-black max-w-4xl mx-auto text-justify py-8 px-4">
       <div className="flex flex-col md:flex-row items-center justify-center md:justify-start">
         <div className="flex-shrink-0">
           <Image src={logo} alt="CSC PNJ Logo" height={320} width={320} className="mx-auto md:mx-0" />
