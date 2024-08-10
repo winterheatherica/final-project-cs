@@ -52,7 +52,7 @@ const UserDashboard = () => {
 
   return (
     <RequireAuth allowedTypes={['A']}>
-      <div className='pt-20'>
+      <div className='pt-20 text-black'>
         <h1>User Dashboard</h1>
         <table className="table-auto w-full mt-8 border-collapse border border-gray-200">
           <thead>

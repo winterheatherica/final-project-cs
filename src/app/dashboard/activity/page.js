@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import { addActivity, fetchActivities, storePickedActivities } from '../../../firebase/database'; // Pastikan path-nya benar
-import RequireAuth from '../../../firebase/requireAuth'; 
+import RequireAuth from '../../../firebase/requireAuth';
 
 const ActivityDashboard = () => {
   const [title, setTitle] = useState('');
@@ -83,7 +83,7 @@ const ActivityDashboard = () => {
 
   // Render table function
   const renderTable = (divisionActivities, divisionName) => (
-    <div>
+    <div className="text-black">
       <h2 className='mt-8'>{divisionName} Division</h2>
       <table className='table-auto w-full mt-4 border-collapse border border-gray-200'>
         <thead>
@@ -131,63 +131,64 @@ const ActivityDashboard = () => {
 
   return (
     <RequireAuth allowedTypes={['A']}>
-    <div className='pt-32'>
-      <form onSubmit={handleAddActivity}>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Division:</label>
-          <select value={division} onChange={(e) => setDivision(e.target.value)} required>
-            <option value="S">Soft-dev</option>
-            <option value="C">Cyber</option>
-            <option value="E">Explore</option>
-          </select>
-        </div>
-        <div>
-          <label>Upload Image:</label>
-          <input
-            type="file"
-            accept=".jpg, .png"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-        </div>
-        <button type="submit">Add Activity</button>
-      </form>
-      {error && <p>{error}</p>}
 
-      {/* Render three tables for each division */}
-      {renderTable(Object.entries(activities).filter(([id, activity]) => activity.division === 'S'), 'Soft-dev')}
-      {renderTable(Object.entries(activities).filter(([id, activity]) => activity.division === 'C'), 'Cyber')}
-      {renderTable(Object.entries(activities).filter(([id, activity]) => activity.division === 'E'), 'Explore')}
+      <div className='pt-32'>
+        <form onSubmit={handleAddActivity}>
+          <div>
+            <label>Title:</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Description:</label>
+            <textarea
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Division:</label>
+            <select value={division} onChange={(e) => setDivision(e.target.value)} required>
+              <option value="S">Soft-dev</option>
+              <option value="C">Cyber</option>
+              <option value="E">Explore</option>
+            </select>
+          </div>
+          <div>
+            <label>Upload Image:</label>
+            <input
+              type="file"
+              accept=".jpg, .png"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </div>
+          <button type="submit">Add Activity</button>
+        </form>
+        {error && <p>{error}</p>}
 
-      {/* Save picked activities button */}
-      <div className='mt-8'>
-        <button onClick={handleSavePickedActivities} className='bg-blue-500 text-white px-4 py-2 rounded'>
-          Save Picked Activities
-        </button>
+        {/* Render three tables for each division */}
+        {renderTable(Object.entries(activities).filter(([id, activity]) => activity.division === 'S'), 'Soft-dev')}
+        {renderTable(Object.entries(activities).filter(([id, activity]) => activity.division === 'C'), 'Cyber')}
+        {renderTable(Object.entries(activities).filter(([id, activity]) => activity.division === 'E'), 'Explore')}
+
+        {/* Save picked activities button */}
+        <div className='mt-8'>
+          <button onClick={handleSavePickedActivities} className='bg-blue-500 text-white px-4 py-2 rounded'>
+            Save Picked Activities
+          </button>
+        </div>
+
+        {/* Display picked activities */}
+        <div className='mt-8'>
+          <h3>Picked Activities:</h3>
+          <pre>{JSON.stringify(pickedDivision, null, 2)}</pre>
+        </div>
       </div>
-
-      {/* Display picked activities */}
-      <div className='mt-8'>
-        <h3>Picked Activities:</h3>
-        <pre>{JSON.stringify(pickedDivision, null, 2)}</pre>
-      </div>
-    </div>
     </RequireAuth>
   );
 };

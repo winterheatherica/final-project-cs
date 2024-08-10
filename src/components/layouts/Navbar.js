@@ -23,17 +23,19 @@ export default function Navbar() {
     checkAuthStatus();
   }, []);
 
+
   const handleLogout = async () => {
     try {
       await logOut();
       setUser(null);
+      window.location.href = '/';
     } catch (error) {
       console.error('Error logging out:', error.message);
     }
   };
 
   return (
-    <nav className="bg-[#071135] text-white fixed w-screen z-10">
+    <nav className="bg-[#071135] text-white fixed w-screen z-10 h-20 flex">
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex items-center gap-1 font-medium">
           <img src="/logo.png" className="h-8"/>
