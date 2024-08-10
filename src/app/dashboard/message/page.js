@@ -6,6 +6,7 @@ import RequireAuth from '../../../firebase/requireAuth';
 
 const MessageDashboard = () => {
   const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState({});
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -29,7 +30,25 @@ const MessageDashboard = () => {
       }
     };
 
+    const fetchUsers = async () => {
+      try {
+        const db = getDatabase();
+        const usersRef = ref(db, 'users');
+        const snapshot = await get(usersRef);
+
+        if (snapshot.exists()) {
+          const usersData = snapshot.val();
+          setUsers(usersData);
+        } else {
+          setUsers({});
+        }
+      } catch (err) {
+        setError('Error fetching users: ' + err.message);
+      }
+    };
+
     fetchMessages();
+    fetchUsers();
   }, []);
 
   return (
@@ -42,7 +61,8 @@ const MessageDashboard = () => {
           <thead>
             <tr className='bg-gray-100'>
               <th className='border border-gray-300 px-4 py-2'>Message ID</th>
-              <th className='border border-gray-300 px-4 py-2'>UID</th>
+              {/* <th className='border border-gray-300 px-4 py-2'>UID</th> */}
+              <th className='border border-gray-300 px-4 py-2'>Username</th>
               <th className='border border-gray-300 px-4 py-2'>Title</th>
               <th className='border border-gray-300 px-4 py-2'>Content</th>
               <th className='border border-gray-300 px-4 py-2'>Sent At</th>
@@ -52,10 +72,13 @@ const MessageDashboard = () => {
             {messages.map(([messageId, message]) => (
               <tr key={messageId}>
                 <td className='border border-gray-300 px-4 py-2'>{messageId}</td>
-                <td className='border border-gray-300 px-4 py-2'>{message.uid}</td>
+                {/* <td className='border border-gray-300 px-4 py-2'>{message.uid}</td> */}
+                <td className='border border-gray-300 px-4 py-2'>
+                  {users[message.uid]?.username || 'Unknown User'}
+                </td>
                 <td className='border border-gray-300 px-4 py-2'>{message.title}</td>
                 <td className='border border-gray-300 px-4 py-2'>{message.content}</td>
-                <td className='border border-gray-300 px-4 py-2'>{message.sent_at}</td>
+                <td className='border border-gray-300 px-4 py-2'>{new Date(message.sent_at).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
