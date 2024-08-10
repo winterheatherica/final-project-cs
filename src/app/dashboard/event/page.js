@@ -319,7 +319,7 @@ const EventDashboard = () => {
             <div className='bg-white p-4 rounded shadow-lg w-3/4 h-3/4'>
               <button onClick={handleMapClose} className='absolute top-2 right-2'>Close</button>
               <LoadScript
-                googleMapsApiKey="AIzaSyBhp4HjPJPZ2JpYBF3rC0q9_e9zhpiTSTw"
+                googleMapsApiKey={GEOCODING_API_KEY}
               >
                 <GoogleMap
                   mapContainerStyle={containerStyle}
