@@ -1,4 +1,4 @@
-import app from "./firebaseConfig";
+import { app } from './firebaseConfig';
 import { storage } from './firebaseConfig';
 import { getDatabase, ref, update, get, push, set } from 'firebase/database';
 import { ref as storageRef, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
