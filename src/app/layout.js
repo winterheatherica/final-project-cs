@@ -1,6 +1,5 @@
+// src/app/layout.js
 import { Inter } from 'next/font/google';
-import { getAuthStatus } from '../firebase/auth';
-import AdminLayout from '../components/layouts/AdminLayout';
 import UserLayout from '../components/layouts/UserLayout';
 import './globals.css';
 
@@ -12,23 +11,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  let userType = 'U'; // Default to 'User'
-
-  try {
-    const user = await getAuthStatus();
-    userType = user?.type || 'U'; // Set userType based on authentication status
-  } catch (error) {
-    console.error('Error fetching user type:', error.message);
-  }
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        {userType === 'A' ? (
-          <AdminLayout>{children}</AdminLayout>
-        ) : (
-          <UserLayout>{children}</UserLayout>
-        )}
+        <UserLayout>{children}</UserLayout>
       </body>
     </html>
   );
