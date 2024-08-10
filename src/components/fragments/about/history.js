@@ -1,6 +1,6 @@
 export default function History() {
   return (
-    <section className="max-w-4xl mx-auto py-8">
+    <section className="max-w-4xl mx-auto py-8 px-4">
       <h2 className="text-black text-4xl text-center mb-8"><b>History</b></h2>
       <div className="text-justify text-black">
         <p className="text-lg leading-relaxed mb-4">
