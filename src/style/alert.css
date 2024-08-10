@@ -1,0 +1,10 @@
+/* styles.css */
+.custom-swal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .custom-swal .swal2-title {
+    margin-left: 10px; /* Adjust spacing as needed */
+  }

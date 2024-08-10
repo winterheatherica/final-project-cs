@@ -27,25 +27,33 @@ export default function Navbar() {
     try {
       await logOut();
       setUser(null);
+      window.location.href = '/';
     } catch (error) {
       console.error('Error logging out:', error.message);
     }
   };
 
+  const isAdmin = user?.type === 'A';
+  const isGuestOrUser = !isAdmin;
+
   return (
-    <nav className="bg-[#071135] text-white fixed w-screen z-10">
+    <nav className="bg-[#071135] text-white fixed w-screen z-10 h-20 flex">
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex items-center gap-1 font-medium">
           <img src="/logo.png" className="h-8"/>
           <p>CSC PNJ</p>
         </div>
         <div className="hidden md:flex space-x-9 justify-center flex-1">
-          {user?.type === 'A' && <Link href="/dashboard" className="hover:text-[#0E1E76]">Dashboard</Link>}
-          <Link href="/" className="hover:text-[#0E1E76]">Home</Link>
-          <Link href="/about" className="hover:text-[#0E1E76]">About</Link>
-          <Link href="/division" className="hover:text-[#0E1E76]">Division</Link>
-          <Link href="/event" className="hover:text-[#0E1E76]">Event</Link>
-          {user?.type !== 'A' && <Link href="/contact" className="hover:text-[#0E1E76]">Contact</Link>}
+          {isAdmin && <Link href="/dashboard" className="hover:text-[#0E1E76]">Dashboard</Link>}
+          {isGuestOrUser && (
+            <>
+              <Link href="/" className="hover:text-[#0E1E76]">Home</Link>
+              <Link href="/about" className="hover:text-[#0E1E76]">About</Link>
+              <Link href="/division" className="hover:text-[#0E1E76]">Division</Link>
+              <Link href="/event" className="hover:text-[#0E1E76]">Event</Link>
+              {isGuestOrUser && <Link href="/contact" className="hover:text-[#0E1E76]">Contact</Link>}
+            </>
+          )}
         </div>
         <div className="hidden md:block">
           {user ? (
@@ -74,12 +82,16 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
-          {user?.type === 'A' && <Link href="/dashboard" className="hover:text-[#0E1E76]">Dashboard</Link>}
-          <Link href="/" className="hover:text-[#0E1E76]">Home</Link>
-          <Link href="/about" className="hover:text-[#0E1E76]">About</Link>
-          <Link href="/division" className="hover:text-[#0E1E76]">Division</Link>
-          <Link href="/event" className="hover:text-[#0E1E76]">Event</Link>
-          {user?.type !== 'A' && <Link href="/contact" className="hover:text-[#0E1E76]">Contact</Link>}
+          {isAdmin && <Link href="/dashboard" className="hover:text-[#0E1E76]">Dashboard</Link>}
+          {isGuestOrUser && (
+            <>
+              <Link href="/" className="hover:text-[#0E1E76]">Home</Link>
+              <Link href="/about" className="hover:text-[#0E1E76]">About</Link>
+              <Link href="/division" className="hover:text-[#0E1E76]">Division</Link>
+              <Link href="/event" className="hover:text-[#0E1E76]">Event</Link>
+              {isGuestOrUser && <Link href="/contact" className="hover:text-[#0E1E76]">Contact</Link>}
+            </>
+          )}
           <div className="mt-4 flex">
             {user ? (
               <div className="flex flex-col items-start space-y-4">

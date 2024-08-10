@@ -91,7 +91,9 @@ export default function EventList({ activeEvent }) {
             <div className="w-full md:w-2/3 flex items-center">
               <div className={`flex-1 ${index % 2 !== 0 ? 'md:ml-4' : ''}`}>
                 <h3 className="text-lg font-bold mb-2">{event.title}</h3>
-                <p className="text-gray-600">{event.desc}</p>
+                <p className="text-gray-600">{event.date}</p>
+                <p className="text-gray-600">{event.location_name}</p>
+                <p className="text-gray-600 text-justify">{event.desc}</p>
               </div>
             </div>
           </div>

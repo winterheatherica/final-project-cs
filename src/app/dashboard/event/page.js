@@ -7,6 +7,7 @@ import { getAuth } from 'firebase/auth';
 import { addEvent, fetchEvents, storePickedEvents } from '../../../firebase/database'; // Pastikan path-nya benar
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
+import RequireAuth from '../../../firebase/requireAuth';
 
 // Constants for Google Maps
 const containerStyle = {
@@ -19,7 +20,7 @@ const center = {
   lng: 106.82714939117432
 };
 
-const GEOCODING_API_KEY = 'AIzaSyBhp4HjPJPZ2JpYBF3rC0q9_e9zhpiTSTw';
+const GEOCODING_API_KEY = `AIzaSyBhp4HjPJPZ2JpYBF3rC0q9_e9zhpiTSTw`;
 
 const getAddressFromCoordinates = async (latitude, longitude) => {
     try {
@@ -168,9 +169,9 @@ const EventDashboard = () => {
 
   // Render table function
   const renderTable = (typeEvents, typeName) => (
-    <div>
-      <h2 className='mt-8'>{typeName} Events</h2>
-      <table className='table-auto w-full mt-4 border-collapse border border-gray-200'>
+    <div className="text-black">
+      <h2 className='mt-8 text-black'>{typeName} Events</h2>
+      <table className='table-auto w-full mt-4 border-collapse border border-gray-200 text-black'>
         <thead>
           <tr className='bg-gray-100'>
             <th className='border border-gray-300 px-4 py-2'>Event ID</th>
@@ -218,104 +219,107 @@ const EventDashboard = () => {
   );
 
   return (
-    <div className='pt-32'>
-      <form onSubmit={handleAddEvent}>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Date:</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Type:</label>
-          <select value={type} onChange={(e) => setType(e.target.value)} required>
-            <option value="I">Internal</option>
-            <option value="E">External</option>
-          </select>
-        </div>
-        <div>
-          <label>Upload Image:</label>
-          <input
-            type="file"
-            accept=".jpg, .png"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-        </div>
-        <div>
-          <label>Location:</label>
-          <input
-            type="text"
-            value={latitude && longitude ? `${latitude}, ${longitude}` : 'Select location'}
-            readOnly
-          />
-          <button type="button" onClick={handleMapOpen}>
-            Pick Address
+
+    <RequireAuth allowedTypes={['A']}>
+      <div className='pt-32 text-black'>
+        <form onSubmit={handleAddEvent}>
+          <div>
+            <label>Title:</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Description:</label>
+            <textarea
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Date:</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Type:</label>
+            <select value={type} onChange={(e) => setType(e.target.value)} required>
+              <option value="I">Internal</option>
+              <option value="E">External</option>
+            </select>
+          </div>
+          <div>
+            <label>Upload Image:</label>
+            <input
+              type="file"
+              accept=".jpg, .png"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </div>
+          <div>
+            <label>Location:</label>
+            <input
+              type="text"
+              value={latitude && longitude ? `${latitude}, ${longitude}` : 'Select location'}
+              readOnly
+            />
+            <button type="button" onClick={handleMapOpen}>
+              Pick Address
+            </button>
+          </div>
+          <button type="submit">Add Event</button>
+        </form>
+        {error && <p>{error}</p>}
+
+        {/* Render tables for each event type */}
+        {renderTable(Object.entries(events).filter(([id, event]) => event.type === 'I'), 'Internal')}
+        {renderTable(Object.entries(events).filter(([id, event]) => event.type === 'E'), 'External')}
+
+        {/* Save picked events button */}
+        <div className='mt-8'>
+          <button onClick={handleSavePickedEvents} className='bg-blue-500 text-white px-4 py-2 rounded'>
+            Save Picked Events
           </button>
         </div>
-        <button type="submit">Add Event</button>
-      </form>
-      {error && <p>{error}</p>}
 
-      {/* Render tables for each event type */}
-      {renderTable(Object.entries(events).filter(([id, event]) => event.type === 'I'), 'Internal')}
-      {renderTable(Object.entries(events).filter(([id, event]) => event.type === 'E'), 'External')}
-
-      {/* Save picked events button */}
-      <div className='mt-8'>
-        <button onClick={handleSavePickedEvents} className='bg-blue-500 text-white px-4 py-2 rounded'>
-          Save Picked Events
-        </button>
-      </div>
-
-      {/* Display picked events */}
-      <div className='mt-8'>
-        <h3>Picked Events:</h3>
-        <pre>{JSON.stringify(pickedEvents, null, 2)}</pre>
-      </div>
-
-      {/* Google Maps Modal */}
-      {mapOpen && (
-        <div className='fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center'>
-          <div className='bg-white p-4 rounded shadow-lg w-3/4 h-3/4'>
-            <button onClick={handleMapClose} className='absolute top-2 right-2'>Close</button>
-            <LoadScript
-              googleMapsApiKey="AIzaSyBhp4HjPJPZ2JpYBF3rC0q9_e9zhpiTSTw"
-            >
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={mapPosition}
-                zoom={10}
-                onClick={handleMapClick}
-              >
-                {latitude && longitude && (
-                  <Marker position={{ lat: latitude, lng: longitude }} />
-                )}
-              </GoogleMap>
-            </LoadScript>
-          </div>
+        {/* Display picked events */}
+        <div className='mt-8'>
+          <h3>Picked Events:</h3>
+          <pre>{JSON.stringify(pickedEvents, null, 2)}</pre>
         </div>
-      )}
-    </div>
+
+        {/* Google Maps Modal */}
+        {mapOpen && (
+          <div className='fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center'>
+            <div className='bg-white p-4 rounded shadow-lg w-3/4 h-3/4'>
+              <button onClick={handleMapClose} className='absolute top-2 right-2'>Close</button>
+              <LoadScript
+                googleMapsApiKey="AIzaSyBhp4HjPJPZ2JpYBF3rC0q9_e9zhpiTSTw"
+              >
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={mapPosition}
+                  zoom={10}
+                  onClick={handleMapClick}
+                >
+                  {latitude && longitude && (
+                    <Marker position={{ lat: latitude, lng: longitude }} />
+                  )}
+                </GoogleMap>
+              </LoadScript>
+            </div>
+          </div>
+        )}
+      </div>
+    </RequireAuth>
   );
 };
 
