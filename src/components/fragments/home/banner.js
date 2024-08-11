@@ -86,13 +86,9 @@ export default function Banner() {
     }, [registrationDate]);
 
     return (
-        <div className="md:px-32 py-16 flex flex-col md:flex-row-reverse h-screen items-center gap-3 bg-[#071135]">
-            <div className="bg-gray-600 w-full md:w-2/5 h-1/3 md:h-1/2 d:rounded">
-                <img 
-                    src="/fotobanner.jpg" 
-                    alt="Banner" 
-                    className="w-full h-full object-cover object-top md:object-cover rounded md:rounded"
-                />
+        <div className="md:px-32 flex flex-col md:flex-row-reverse h-screen items-center gap-3 bg-[#071135]">
+            <div className="bg-gray-600 w-full md:w-2/5 h-1/3 md:h-1/2 p-4 md:rounded">
+                {/* Optional: Add content or image here */}
             </div>
             <div className="md:w-3/5 flex flex-col gap-4 px-4 py-6">
                 {/* desc */}
